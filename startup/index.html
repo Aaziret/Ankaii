@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ankai Chat</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffcccc;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ff9999;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-container {
+  height: 500px;
+  overflow-y: auto;
+}
+
+.chat-message {
+  background-color: #ffcccc;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  font-size: 18px; /* Увеличение размера шрифта */
+}
+
+.user-message {
+  background-color: #ffe6e6;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  font-size: 18px; /* Увеличение размера шрифта */
+}
+
+.btn {
+  background-color: #ff6666;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px; /* Увеличение размера шрифта */
+}
+
+.btn:hover {
+  background-color: #ff3333;
+}
+
+.header {
+  background-color: #ff6666;
+  color: white;
+  padding: 20px 0; /* Увеличение вертикального отступа */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-logo {
+  font-size: 30px; /* Увеличение размера шрифта */
+}
+
+.nav-link {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px; /* Увеличение размера шрифта */
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-logo">Ankai Chat</div>
+  <nav class="header-nav">
+    <a href="#" class="nav-link" onclick="aboutUs()">О нас</a>
+    <a href="#" class="nav-link" onclick="support()">Поддержка</a>
+  </nav>
+</header>
+<div class="container">
+  <div class="chat-container" id="chat-container">
+    <div class="chat-message">Привет! Я бот Ankai. Чем могу помочь?</div>
+  </div>
+  <div style="margin-top: 20px;">
+    <input type="text" id="user-input" placeholder="Введите ваше сообщение" style="width: calc(100% - 80px); padding: 10px; font-size: 18px;"> <!-- Увеличение размера шрифта -->
+    <button class="btn" onclick="sendMessage()" style="margin-left: 10px;">Отправить</button>
+  </div>
+</div>
+<script>
+function sendMessage() {
+  var userInput = document.getElementById("user-input").value;
+  var chatContainer = document.getElementById("chat-container");
+  var userMessage = '<div class="user-message">' + userInput + '</div>';
+  chatContainer.innerHTML += userMessage;
+  // Определение языка ввода, обработка запроса и получение ответа
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var botResponse = '<div class="chat-message">' + xhr.responseText + '</div>';
+      chatContainer.innerHTML += botResponse;
+    }
+  };
+  xhr.open('GET', '/api/chat?message=' + encodeURIComponent(userInput), true);
+  xhr.send();
+}
+function aboutUs() {
+  // Функция для раздела "О нас"
+  alert('Ankai Chat - ваш лучший виртуальный помощник!');
+}
+function support() {
+  // Функция для раздела "Поддержка"
+  alert('Свяжитесь с нами по адресу support@ankai.com для получения помощи.');
+}
+function detectLanguage(text) {
+  // Функция для определения языка текста
+  // Здесь может быть реализация определения языка, используя API или библиотеки
+  return 'ru'; // Возвращает язык (для примера)
+}
+// Другие функции и улучшения могут быть добавлены по вашему запросу
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
